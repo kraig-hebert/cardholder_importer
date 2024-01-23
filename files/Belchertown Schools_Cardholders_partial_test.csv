@@ -1,7 +1,0 @@
-COMMAND,PERSONID,PARTITION,FIRSTNAME,LASTNAME,CREDENTIALS,ACCESSLEVELS,EXPIRATIONDATE
-NoCommand,_26,Master,Diane,Blais,{1351~1351~26-bit No FAC~Active~~~},{CHCS Teachers~~~FALSE~FALSE},2/15/2024 15:30
-NoCommand,_478,Master,Lisa,Rainaud,{1712~1712~26-bit No FAC~Active~~~},{SRE Teachers~~~FALSE~FALSE},6/13/2024 15:30
-NoCommand,_507,Master,Susan,Swift,{1651~1651~26-bit No FAC~Active~~~},{BHS Teachers~~~FALSE~FALSE},6/14/2024
-NoCommand,_132,Master,Diane,Janas,{1543~1543~26-bit No FAC~Active~~~},{SRE All Doors Daytime~~~FALSE~FALSE},6/28/2024 14:00
-NoCommand,_411,Master,Ruth,Kampe,{1626~1626~26-bit No FAC~Disabled~~~|1698~1698~26-bit No FAC~Active~~~},{BHS Teachers~~~FALSE~FALSE},6/28/2024 14:00
-NoCommand,_258,Master,Bianca,Schliemann,{1316~1316~26-bit No FAC~Active~~~},{SRE Teachers~~~FALSE~FALSE},6/28/2024 15:30
