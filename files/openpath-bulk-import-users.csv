@@ -1,0 +1,6 @@
+Email,First Name,Middle Name,Last Name,Mobile Credential,Cloud Key,Card Type,Card Format,Use For Gateway,Card Number,Facility Code,Card ID,Card Start Date,Card End Date,PIN Credential,Remote Unlock,Portal Access,Send Setup Email,Access groups,External ID,My Custom Text Field,Person ID,Title,Department,Mobile Phone
+alex@awesomecorp.com,Alexander,Graham,Bell (from CSV Import sample),,Joe's Cloud Key Credential,DESFIRE,,,68D7B644DC5903,,,,,12345678,FALSE,FALSE,FALSE,Engineering,123,Custom Text 1,,,,14155552671
+isaac@awesomecorp.com,Isaac,,Newton (from CSV Import sample),Joe's iPhone 7,,MIFARE,,,68D7B644DC5904,,,,,2789,FALSE,FALSE,FALSE,,456,Custom Text 2,,,,
+albert@awesomecorp.com,Albert,,Einstein (from CSV Import sample),,,WIEGAND,prox26std,FALSE,,63,17,2019-06-03T07:00:00.000Z,2019-06-30T07:00:00.000Z,,TRUE,TRUE,TRUE,"Engineering,HQ Employees",,Custom Text 3,,,,"442071838750
+"
+marie@awesomecorp.com,Marie,,Curie (from CSV Import sample),,,WIEGAND,prox33std,TRUE,,63,17,2019-06-03T07:00:00.000Z,2019-06-30T07:00:00.000Z,7777777,TRUE,TRUE,TRUE,"Engineering,HQ Employees",789,Custom Text 4,,,,
