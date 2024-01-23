@@ -1,71 +1,55 @@
-const fs = require('fs');
+const fs = require("fs");
+const builder = require("./modules/builder");
 
-const buildCardholder = (cardholderData) => {
-  return {
-    fName: cardholderData[3],
-    lName: cardholderData[4],
-    credentials: cardholderData[5],
-    groups: cardholderData[6],
-  };
-};
+const csvHeader =
+  "Email,First Name,Last Name,Card Type,Card Format,Use For Gateway,Facility Code,Card ID,Card Start Date,Remote Unlock,Portal Access, Send Setup Email,Access groups\n";
+const cardType = "WIEGAND";
+const cardFormat = "prox26std";
+const useForGateway = "FALSE";
+const facilityCode = "16";
+const cardStart = "2024-01-19T07:00:00.000Z";
+const remoteUser = "FALSE";
+const portalAccess = "FALSE";
+const sendSetupEmail = "FALSE";
 
-// Function to parse CSV data
+// Read CSV file
+const filePath = "files/Belchertown Schools_Cardholders.csv";
+const csvData = fs.readFileSync(filePath, "utf8");
+
+// Function to parse CSV data to a list of objects
 function parseCSV(csvData) {
-  const rows = csvData.split('\n');
-  const parsedData = [];
-
-  rows.forEach((row) => {
-    const cardholder = row.split(',');
-    parsedData.push(buildCardholder(cardholder));
-  });
+  const rows = csvData.split("\n");
+  const parsedData = rows.map((row) => builder.buildCardholder(row.split(",")));
   parsedData.shift();
   parsedData.pop();
 
   return parsedData;
 }
 
-// Read CSV file
-const filePath = 'files/Belchertown Schools_Cardholders_partial_test.csv';
-const csvData = fs.readFileSync(filePath, 'utf8');
-
-// Parse CSV data into cardholders
-const cardHolders = parseCSV(csvData);
-
-const csvHeader =
-  'Email,First Name,Last Name,Card Type,Card Format,Use For Gateway,Facility Code,Card ID,Card Start Date,Remote Unlock,Portal Access, Send Setup Email,Access groups\n';
-const buildImportCSV = (cardholderList) => {
-  let csvData = '';
+// create csv string for output
+const buildOutputCSV = (cardholderList) => {
+  let csvData = "";
   csvData += csvHeader;
 
-  const cardType = 'WIEGAND';
-  const cardFormat = 'prox26std';
-  const useForGateway = 'FALSE';
-  const facilityCode = '16';
-  //cardId = i get this
-  const cardStart = '2024-01-19T07:00:00.000Z';
-  const remoteUser = 'FALSE';
-  const portalAccess = 'FALSE';
-  const sendSetupEmail = 'FALSE';
-  //accessGroups = i get this
-  console.log(cardholderList);
-
   cardholderList.forEach((cardholder) => {
-    const email = `${cardholder.fName.charAt(0)}${
+    const emailWithSpaces = `${cardholder.fName.charAt(0)}${
       cardholder.lName
     }@belchertownps.org`;
+    const email = emailWithSpaces.split(" ").join("");
 
-    csvData += `${email},${cardholder.fName},${cardholder.lName},${cardType},${cardFormat},${useForGateway},${facilityCode},100,${cardStart},${remoteUser},${portalAccess},${sendSetupEmail}\n`;
+    const activeCards = builder.getActiveCardNumbers(cardholder.credentials);
+    const accessGroups = builder.getAccessGroups(cardholder.groups);
+
+    activeCards.forEach((card) => {
+      csvData += `${email},${cardholder.fName},${cardholder.lName},${cardType},${cardFormat},${useForGateway},${facilityCode},${card[0]},${cardStart},${remoteUser},${portalAccess},${sendSetupEmail},"${accessGroups}"\n`;
+    });
   });
 
-  console.log(csvData);
   return csvData;
 };
 
-// Display parsed data
-// cardHolders.forEach((cardHolder) => console.log(cardHolder.fName));
-
-const outputCSV = buildImportCSV(cardHolders);
+const outputCSV = buildOutputCSV(parseCSV(csvData));
 
 // Write the modified CSV data to a new file
-const outputFilePath = 'files/exportDump.csv';
-fs.writeFileSync(outputFilePath, outputCSV, 'utf8');
+const outputFilePath = "files/exportDump.csv";
+fs.writeFileSync(outputFilePath, outputCSV, "utf8");
